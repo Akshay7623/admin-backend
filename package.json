@@ -1,7 +1,6 @@
 {
   "name": "admin-backend",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -18,5 +17,16 @@
     "mongoose": "^6.8.3",
     "nodemon": "^2.0.20",
     "request": "^2.88.2"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Akshay7623/Jay-backend.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/Akshay7623/Jay-backend/issues"
+  },
+  "homepage": "https://github.com/Akshay7623/Jay-backend#readme",
+  "description": ""
 }

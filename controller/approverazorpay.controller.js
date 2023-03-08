@@ -1,11 +1,14 @@
-const {WithdrawModel} = require('../model/model');
+const {WithdrawModel,AllTransactionModel} = require('../model/model');
 const request = require("request");
 const approveRazorpay =  async (req,res,next)=>{
     const withdrawData = await WithdrawModel.findOne({$and:[{_id:req.body.id},{paymentStatus:0}]});
+    
     if(withdrawData){
     const {time} = withdrawData;
 
         const {userId,name,email,mobile,source,ifsc,paymentStatus,withdrawAmount} = withdrawData;
+        const transactionData = await AllTransactionModel.findOne({$and:[{userId:userId},{time:time}]});
+        
         if(withdrawAmount<1000){
             amount = withdrawAmount - 30;
         }else{
@@ -49,7 +52,9 @@ const approveRazorpay =  async (req,res,next)=>{
                 narration: 'payout',
                 notes: {
                   userId: userId,
-                  orderId: userId,
+                  transactionId:req.body.id,
+                  withdrawAmount:withdrawAmount,
+                  transactionDataId:transactionData._id
                 },
               };
         }else{
@@ -83,7 +88,9 @@ const approveRazorpay =  async (req,res,next)=>{
                   narration: "Acme Corp Fund Transfer",
                   notes: {
                     userId: userId,
-                    orderId: userId,
+                    transactionId:req.body.id,
+                    withdrawAmount:withdrawAmount,
+                    transactionDataId:transactionData._id
                   },
                 };
         }

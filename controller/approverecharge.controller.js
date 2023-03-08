@@ -10,7 +10,7 @@ const ApproveRecharge = async (req,res,next)=>{
        if(user){
 
         if(user.bonusDone === 0){
-         if(rechargeData.rechargeAmount >=300){
+         if(rechargeData.rechargeAmount >=500){
            const parentData = await RegisterModel.findOne({ReferCode:user.inviteCode});
             if(parentData){
                 const updateParentBonus = await RegisterModel.updateOne({ReferCode:user.inviteCode},{$inc:{bonusWallet:100}});

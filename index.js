@@ -35,6 +35,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+//mongodb://Akshay:Akshay9978@64.227.129.191:27017/admin?authSource=admin
 
 app.use('/api/getalluser',getUsersRoute);
 app.use('/api/login',login);
@@ -64,6 +65,11 @@ app.use('/api/getbonusrecord',getBonusRecord);
 app.use('/api/approvebonus',approveBonus);
 app.use('/api/rejectbonus',rejectBonus);
 
+
+app.use(express.static(__dirname + '/build'));
+app.get("/*", (req, res) => {
+   res.sendFile(path.join(__dirname, "build", "index.html"));
+});
 
 app.listen(port,()=>{
     console.log(`app is running on port ${port}`);
