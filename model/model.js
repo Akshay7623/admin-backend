@@ -210,6 +210,7 @@ const ResultParitySchema = new mongoose.Schema({
   totalP:Number,
   win_number:Number,
   price:Number,
+  isChanged:Number,
   show:Number,
   BetMoney:Array
 });
@@ -219,6 +220,7 @@ const ResultSapreSchema = new mongoose.Schema({
   totalP:Number,
   win_number:Number,
   price:Number,
+  isChanged:Number,
   show:Number,
   BetMoney:Array
 });
@@ -228,6 +230,7 @@ const ResultBconeSchema = new mongoose.Schema({
   totalP:Number,
   win_number:Number,
   price:Number,
+  isChanged:Number,
   show:Number,
   BetMoney:Array
 });
@@ -237,6 +240,7 @@ const ResultEmerdSchema = new mongoose.Schema({
   totalP:Number,
   win_number:Number,
   price:Number,
+  isChanged:Number,
   show:Number,
   BetMoney:Array
 });
@@ -292,6 +296,16 @@ const ApplyBonusSchema = new mongoose.Schema({
   time:Number
 });
 
+const PredictionSchema = new mongoose.Schema({
+  server:String,
+  period:String,
+  predict:String,
+  result:{
+    type:String,
+    default:''
+  }
+});
+
 const RegisterModel = new mongoose.model('users',RegisterSchema);
 const ForgotpassModel = new mongoose.model('forgotpass',ForgotpassSchema);
 const addBankModel = new mongoose.model('banks',addBankSchema);
@@ -314,5 +328,6 @@ const AllTargetModel = new mongoose.model('alltargets',AllTargetSchema);
 const ComplaintsModel = new mongoose.model('complaints',ComplaintSchema);
 const AllTransactionModel = new mongoose.model('alltransactions',AllTransactionSchema);
 const ApplyBonusModel = new mongoose.model('applybonuses',ApplyBonusSchema);
+const PredictionModel = new mongoose.model('predictions',PredictionSchema);
 
-module.exports = {RegisterModel,ForgotpassModel,addBankModel,addUPIModel,KYCModel,RechargeModel,WithdrawModel,BetParityModel,BetSapreModel,BetBconeModel,BetEmerdModel,ParityModel,SapreModel,BconeModel,EmerdModel,PandLModel,AdminModel,UPIIDModel,AllTargetModel,AllTransactionModel,ComplaintsModel,ApplyBonusModel};
+module.exports = {RegisterModel,ForgotpassModel,addBankModel,addUPIModel,KYCModel,RechargeModel,WithdrawModel,BetParityModel,BetSapreModel,BetBconeModel,BetEmerdModel,ParityModel,SapreModel,BconeModel,EmerdModel,PandLModel,AdminModel,UPIIDModel,AllTargetModel,AllTransactionModel,ComplaintsModel,ApplyBonusModel,PredictionModel};

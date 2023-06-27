@@ -11,7 +11,7 @@ const getUsers = async(req,res,next)=>{
       }
 
       count = await RegisterModel.find({isV:1}).count();
-
+      console.log(count);
       res.json({users:users,count:count});
 
 }

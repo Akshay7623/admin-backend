@@ -16,11 +16,10 @@ const approveRazorpay =  async (req,res,next)=>{
         }
 
         const reqUrl = "https://api.razorpay.com/v1/payouts";
-        const headersList = {
+        const headersList = { 
           Accept: "*/*",
           "Content-Type": "application/json",
-          Authorization:
-            "Basic cnpwX2xpdmVfT0V0cVZoZ0R1TGplNUQ6bDhEMUtoRjlnMEpSRHVidDlnWGl0QlVK",
+          Authorization: "Basic cnpwX2xpdmVfT0V0cVZoZ0R1TGplNUQ6bDhEMUtoRjlnMEpSRHVidDlnWGl0QlVK",
         };
 
         if(ifsc === '0'){
@@ -52,8 +51,8 @@ const approveRazorpay =  async (req,res,next)=>{
                 narration: 'payout',
                 notes: {
                   userId: userId,
-                  transactionId:req.body.id,
                   withdrawAmount:withdrawAmount,
+                  transactionId:req.body.id,
                   transactionDataId:transactionData._id
                 },
               };
@@ -95,27 +94,22 @@ const approveRazorpay =  async (req,res,next)=>{
                 };
         }
 
-        request.post( { url: reqUrl,
-            headers: headersList,
-            body: payload,
-            json: true, },
-         async (err, resp, body) => {
+        request.post({ url: reqUrl, headers: headersList, body: payload, json: true },
+          async (err, resp, body) => {
             if (err) {
               console.error(err);
               return;
             }
-            // console.log(body);
-    
-            if (body.status === "processing" || body.status === 'queued' ) {
-              //update database here
-             const updateWithdraw = await WithdrawModel.updateOne({_id:req.body.id},{paymentStatus:1});
-             const transaction = await AllTransactionModel.updateOne({$and:[{userId:userId},{time:time}]},{transactionStatus:1});
-             res.json({message:'success'});
-            }else{
-             res.json({message:'ERROR'});
+     
+            if (body.status === "processing" || body.status === "queued") {
+              const updateWithdraw = await WithdrawModel.updateOne({ _id: req.body.id }, { paymentStatus: 1 });
+              const transaction = await AllTransactionModel.updateOne({ $and: [{ userId: userId }, { time: time }] },{ transactionStatus: 1 });
+              res.json({ message: "success" });
+            } else {
+              res.json({ message: "ERROR" });
             }
-
-          } );
+          }
+        );
 
     }else{
         res.json({message:'INVALID_DATA'});

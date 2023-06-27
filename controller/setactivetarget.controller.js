@@ -41,9 +41,12 @@ const getToday = ()=>{
 }
 
 const dateStr = getToday();
+
 const setActiveTarget = async (req,res,next)=>{
    const {server,target} = req.body;
     if(server === 'parity' || server === 'sapre' || server === 'bcone' || server === 'emerd'){
+      console.log('here we come');
+      console.log(dateStr);
         const activeTarget = await PandLModel.findOne({$and:[{server:server},{dateStr:dateStr}]});
         if(activeTarget){
         const updateTarget = await PandLModel.updateOne({$and:[{server:server},{dateStr:dateStr}]},{Target:target});

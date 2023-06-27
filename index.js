@@ -29,14 +29,19 @@ const setComplains = require('./routes/setComplainsRoute.js');
 const getBonusRecord = require('./routes/getBonusRoute.js');
 const approveBonus = require('./routes/approveBonusRoute.js');
 const rejectBonus = require('./routes/rejectBonusRoute.js');
+const MakePrediction = require('./routes/makePredictionRoute.js');
+const payoutWebhook = require('./routes/payoutRoute.js');
 const path = require('path');
+const bodyParser = require('body-parser');
 
 const port = 5500;
 const app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
 
-//mongodb://Akshay:Akshay9978@64.227.129.191:27017/admin?authSource=admin
+//mongodb://admin:Akshay9978@64.227.129.191:27017/admin?authSource=admin
 
 app.use('/api/getalluser',getUsersRoute);
 app.use('/api/login',login);
@@ -65,7 +70,8 @@ app.use('/api/setcomplains',setComplains);
 app.use('/api/getbonusrecord',getBonusRecord);
 app.use('/api/approvebonus',approveBonus);
 app.use('/api/rejectbonus',rejectBonus);
-
+app.use('/api/makeprediction',MakePrediction);
+app.use('/api/payoutwebhook',payoutWebhook);
 
 app.use(express.static(__dirname + '/build'));
 app.get("/*", (req, res) => {

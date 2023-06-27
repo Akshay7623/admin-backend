@@ -57,8 +57,6 @@ const updateBetData = async(req,res,next)=>{
       return `${d}${m}${y}`;
     }
 
-
-
     let currPeriod = getPeriod();
     let dateStr = getToday();
     let result,Period;
@@ -67,12 +65,12 @@ const updateBetData = async(req,res,next)=>{
             result = await ParityModel.findOne({Period:currPeriod});
             if(result){
                 profitLoss = ProfitLossByNumber(result.BetMoney,number);
-                const updateBet = await ParityModel.updateOne({Period:currPeriod},{win_number:number});
+                const updateBet = await ParityModel.updateOne({Period:currPeriod},{win_number:number,isChanged:1});
                 const targetDoc = await AllTargetModel.findOne({$and:[{server:server},{Period:currPeriod}]});
                 if(targetDoc){
-                  const updateTargetDoc = await AllTargetModel.updateOne({$and:[{server:server},{Period:currPeriod}]},{ProfitOrLoss:profitLoss,Target:profitLoss});
+                  const updateTargetDoc = await AllTargetModel.updateOne({$and:[{server:server},{Period:currPeriod}]},{Target:0,ProfitOrLoss:profitLoss});
                 }else{
-                  const datePL = AllTargetModel({server:server,dateStr:dateStr,ProfitOrLoss:profitLoss,Target:profitLoss,Period:currPeriod})
+                  const datePL = AllTargetModel({server:server,dateStr:dateStr,ProfitOrLoss:profitLoss,Target:0,Period:currPeriod})
                   const savePandL = await datePL.save();
                 }
                 res.json({message:'success'});
@@ -84,12 +82,12 @@ const updateBetData = async(req,res,next)=>{
             result = await SapreModel.findOne({Period:currPeriod});
             if(result){
                 profitLoss = ProfitLossByNumber(result.BetMoney,number);
-                const updateBet = await SapreModel.updateOne({Period:currPeriod},{win_number:number});
+                const updateBet = await SapreModel.updateOne({Period:currPeriod},{win_number:number,isChanged:1});
                 const targetDoc = await AllTargetModel.findOne({$and:[{server:server},{Period:currPeriod}]});
                 if(targetDoc){
-                  const updateTargetDoc = await AllTargetModel.updateOne({$and:[{server:server},{Period:currPeriod}]},{ProfitOrLoss:profitLoss,Target:profitLoss});
+                  const updateTargetDoc = await AllTargetModel.updateOne({$and:[{server:server},{Period:currPeriod}]},{Target:0,ProfitOrLoss:profitLoss});
                 }else{
-                  const datePL = AllTargetModel({server:server,dateStr:dateStr,ProfitOrLoss:profitLoss,Target:profitLoss,Period:currPeriod})
+                  const datePL = AllTargetModel({server:server,dateStr:dateStr,ProfitOrLoss:profitLoss,Target:0,Period:currPeriod})
                   const savePandL = await datePL.save();
                 }
                 res.json({message:'success'});
@@ -101,12 +99,12 @@ const updateBetData = async(req,res,next)=>{
             result = await BconeModel.findOne({Period:currPeriod});
             if(result){
                 profitLoss = ProfitLossByNumber(result.BetMoney,number);
-                const updateBet = await BconeModel.updateOne({Period:currPeriod},{win_number:number});
+                const updateBet = await BconeModel.updateOne({Period:currPeriod},{win_number:number,isChanged:1});
                 const targetDoc = await AllTargetModel.findOne({$and:[{server:server},{Period:currPeriod}]});
                 if(targetDoc){
-                  const updateTargetDoc = await AllTargetModel.updateOne({$and:[{server:server},{Period:currPeriod}]},{ProfitOrLoss:profitLoss,Target:profitLoss});
+                  const updateTargetDoc = await AllTargetModel.updateOne({$and:[{server:server},{Period:currPeriod}]},{Target:0,ProfitOrLoss:profitLoss});
                 }else{
-                  const datePL = AllTargetModel({server:server,dateStr:dateStr,ProfitOrLoss:profitLoss,Target:profitLoss,Period:currPeriod})
+                  const datePL = AllTargetModel({server:server,dateStr:dateStr,ProfitOrLoss:profitLoss,Target:0,Period:currPeriod})
                   const savePandL = await datePL.save();
                 }
                 res.json({message:'success'});
@@ -118,12 +116,12 @@ const updateBetData = async(req,res,next)=>{
             result = await EmerdModel.findOne({Period:currPeriod});
             if(result){
                 profitLoss = ProfitLossByNumber(result.BetMoney,number);
-                const updateBet = await EmerdModel.updateOne({Period:currPeriod},{win_number:number});
+                const updateBet = await EmerdModel.updateOne({Period:currPeriod},{win_number:number,isChanged:1});
                 const targetDoc = await AllTargetModel.findOne({$and:[{server:server},{Period:currPeriod}]});
                 if(targetDoc){
-                  const updateTargetDoc = await AllTargetModel.updateOne({$and:[{server:server},{Period:currPeriod}]},{ProfitOrLoss:profitLoss,Target:profitLoss});
+                  const updateTargetDoc = await AllTargetModel.updateOne({$and:[{server:server},{Period:currPeriod}]},{Target:0,ProfitOrLoss:profitLoss});
                 }else{
-                  const datePL = AllTargetModel({server:server,dateStr:dateStr,ProfitOrLoss:profitLoss,Target:profitLoss,Period:currPeriod})
+                  const datePL = AllTargetModel({server:server,dateStr:dateStr,ProfitOrLoss:profitLoss,Target:0,Period:currPeriod})
                   const savePandL = await datePL.save();
                 }
                 res.json({message:'success'});
